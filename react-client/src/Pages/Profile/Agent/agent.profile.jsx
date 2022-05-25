@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Loader from '../../../Component/Loader/loader'
 
 function AgentProfile() {
 
@@ -15,6 +16,14 @@ function AgentProfile() {
     createdAt: "",
     updateAt: "",
   });
+
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false)
+    }, 1000)
+  }, [])
 
   // const [agentHall, setAgentHall] = useState([]);
 
@@ -471,7 +480,7 @@ function AgentProfile() {
     }
   }
 
-  return (
+  return loader ? <Loader/> :(
     <div className="">
       <section className=" px-8 mt-9 ml-8 agent-infos flex items-center justify-start rounded bg-green-500 p-4 w-1/3  shadow-lg">
         <div className="flex items-center">

@@ -18,13 +18,14 @@ function Home() {
   return loader ? <Loader /> : (
     <div className="home">
 
-      <main className="flex flex-col justify-center items-center mb-4 h-screen z-0" style={{
+      {/* <main className="flex flex-col justify-center items-center mb-4 h-screen z-0" style={{
         backgroundImage: "url('https://media.istockphoto.com/photos/shot-of-a-group-of-businesspeople-attending-a-conference-picture-id1315048009?b=1&k=20&m=1315048009&s=170667a&w=0&h=FRsaRdYgiedRtrNT3ygNxHzIOR0v6t2Rpl44b49dAcI=')",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         zIndex: -1,
 
-      }}>
+      }}> */}
+      <main className="flex flex-col justify-center items-center mb-4 h-screen z-0 bg-green-800">
         <div className="mb-4">
           <span className=" cursor-pointer shadow-2xl shadow-black p-4"><HomeIcon className="text-white w-[150px]" /></span>
         </div>
@@ -40,8 +41,8 @@ function Home() {
           </div>
           <div className=" text-white">
             {/* <button className="rounded mx-4 border-2 border-gray-300 p-2 w-1/5 hover:bg-white hover:text-green-500 font-bold"><Link to="about">More</Link></button> */}
-            <button className="rounded font-bold mx-4 border-2 border-gray-300 p-2 w-1/3 hover:shadow-2xl hover:shadow-black  hover:bg-white text-white hover:text-green-500"><Link to="/halls" className="flex items-center justify-center hover:underline">
-              <span><HomeIcon className="text-green-500 w-[35px]" /></span>
+            <button className="rounded font-bold mx-4 border-2 border-gray-300 p-2 w-1/3 hover:shadow-2xl hover:shadow-black  bg-white text-green-500"><Link to="/halls" className="flex items-center justify-center hover:underline">
+              <span><HomeIcon className="w-[35px]" /></span>
               <span> Halls</span>
             </Link>
             </button>
