@@ -1,0 +1,16 @@
+{
+      "development":{
+            "APP_PORT": "",
+            "APP_HOST": "",
+            "DB_URI": "",
+            "DB_NAME":"",
+            "DB_PWD": ""      
+      },
+      "production": {
+            "APP_PORT": "",
+            "APP_HOST": "",
+            "DB_URI": "",
+            "DB_NAME":"",
+            "DB_PWD": ""
+      }
+}
