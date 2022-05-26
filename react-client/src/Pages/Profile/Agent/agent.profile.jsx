@@ -112,7 +112,7 @@ function AgentProfile() {
     getPendingReservation();
     getConfirmedReservation();
     //
-  }, [getAgent, getConfirmedReservation, getConfirmedReservation]);
+  }, []);
 
 
 

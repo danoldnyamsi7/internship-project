@@ -9,12 +9,14 @@ const jwt = require("jsonwebtoken");
 
 // signup
 Router.post('/signup', async (req, res) => {
-      console.log(req.body)
+      console.log({ body: req.body })
       const { error } = validateOrganizer(req.body);
-      console.log(error)
+      console.log({ error: error })
       if (error) return res.status(400).send({ message: error.details[0].message, success: false, data: {}, error: true });
       const organizer = await Organizer.findOne({ contact: req.body.contact });
-      if (organizer) return res.status(400).send({ error: true, success: false, data: {}, message: "account already exists" })
+      // console.log({organizer:organizer})
+      // console.log(req.body.contact, organizer.contact);
+      if (req.body.contact === organizer.contact) return res.status(400).json({ error: true, success: false, data: {}, message: "account already exists" })
       const { password } = req.body;
       let salt = await bcrypt.genSalt(10);
       let hash_pwd = await bcrypt.hash(password, salt);
@@ -26,7 +28,9 @@ Router.post('/signup', async (req, res) => {
                   password: hash_pwd,
             })
 
-            return res.status(201).json({ error: false, success: true, data: organizer, message: "account created" });
+            const newOrganizer = await Organizer.findById(organizer._id);
+
+            return res.status(201).json({ error: false, success: true, data: newOrganizer, message: "account created" });
 
       } catch (error) {
             console.log({ orgErr: error })
@@ -42,7 +46,7 @@ Router.post('/signin', async (req, res) => {
       // validation 
       console.log(req.body)
       const { error } = validateOrganizerLogin(req.body);
-      if(error) console.log(error.details[0].message)
+      if (error) console.log(error.details[0].message)
       if (error) return res.status(400).send({ error: true, success: false, data: {}, message: error.details[0].message });
 
       // verification
@@ -175,7 +179,7 @@ Router.get("/reservations-list", isAuthzOrganizer, async (req, res) => {
 
 // update Reservation
 Router.patch("/update-reservation/:reservation_id", isAuthzOrganizer, async (req, res) => {
-      console.log({body: req.body});
+      console.log({ body: req.body });
       const current_organizer = await Organizer.findById(req.organizer._id);
       if (!current_organizer) console.log({ fetchError: error });
       if (!current_organizer) return res.status(400).json({ error: false, success: false, data: {}, message: "Organizer doesn't exist" });
@@ -229,11 +233,13 @@ Router.delete("/cancel-reservation/:reservation_id", isAuthzOrganizer, async (re
             // // update reservation collection
 
             await Reservation.findByIdAndDelete(req.params.reservation_id);
-            await Hall.findByIdAndUpdate(reservation.hall_id, {$pull: {
-                  reservations: reservation._id
-            }})
+            await Hall.findByIdAndUpdate(reservation.hall_id, {
+                  $pull: {
+                        reservations: reservation._id
+                  }
+            })
 
-            await Organizer.findByIdAndUpdate(reservation.organizer_id, {$pull: {reservations: reservation._id}})
+            await Organizer.findByIdAndUpdate(reservation.organizer_id, { $pull: { reservations: reservation._id } })
             return res.status(203).json({ error: false, success: true, data: {}, message: "reservation canceled and deleted, all collections updated" });
 
       } catch (error) {
