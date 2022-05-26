@@ -233,7 +233,7 @@ Router.delete("/cancel-reservation/:reservation_id", isAuthzOrganizer, async (re
                   reservations: reservation._id
             }})
 
-            await Organizer.findByIdAndUpdate(reservation.organizer._id, {$pull: {reservations: reservation._id}})
+            await Organizer.findByIdAndUpdate(reservation.organizer_id, {$pull: {reservations: reservation._id}})
             return res.status(203).json({ error: false, success: true, data: {}, message: "reservation canceled and deleted, all collections updated" });
 
       } catch (error) {

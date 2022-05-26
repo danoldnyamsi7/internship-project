@@ -41,10 +41,12 @@ function OrganizerSignin(props) {
                         // const { name, _id } = organizer;
                         localStorage.setItem("oaccess-token", token);
                         console.log(token, organizer);
+                        alert("success")
                         navigateTo("/organizer/profile-page");
                   })
                   .catch(error => {
                         console.error(error);
+                        alert("please try again")
                         navigateTo("/organizer/signin");
                   })
 
