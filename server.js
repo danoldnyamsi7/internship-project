@@ -9,7 +9,9 @@ const helmet = require("helmet");
 const { db_conn } = require("./api-v-1.0/configurations/database");
 
 // middlewares
-app.use(cors());
+app.use(cors({
+    origin: "*",
+}));
 app.use(express.json({limit:'100mb'}));
 app.use(helmet());
 
