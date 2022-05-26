@@ -129,7 +129,7 @@ Router.patch("/change-password", isAuthzOrganizer, async (req, res) => {
 
 })
 
-// delete profile
+// delete profile [forget]
 Router.delete('/delete-account', isAuthzOrganizer, async (req, res) => {
       const { contact, password } = req.body;
       const organizer = await Organizer.findOne({ contact: contact });
