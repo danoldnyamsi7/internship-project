@@ -40,13 +40,15 @@ Router.post('/signup', async (req, res) => {
 // signin
 Router.post('/signin', async (req, res) => {
       // validation 
+      console.log(req.body)
       const { error } = validateOrganizerLogin(req.body);
+      if(error) console.log(error.details[0].message)
       if (error) return res.status(400).send({ error: true, success: false, data: {}, message: error.details[0].message });
 
       // verification
       const { contact, password } = req.body;
       const organizer = await Organizer.findOne({ contact: contact });
-      if (!organizer) return res.status(404).json({ error: error, success: false, data: {}, message: "Account doesnt't exists" });
+      if (!organizer) return res.status(400).json({ error: error, success: false, data: {}, message: "Account doesnt't exists" });
       const isPassword = await bcrypt.compare(password, organizer.password);
       if (!isPassword) return res.status(400).json({ error: true, success: false, data: {}, message: "invalid password, please try again" });
 

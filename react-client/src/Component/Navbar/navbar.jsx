@@ -115,6 +115,7 @@ function Navbar() {
                                           {!otoken && <Link to="/organizer/signup" className="w-full"><li className="list-none hover:cursor-pointer  hover:bg-black p-2">Sign up</li></Link>}
                                           {/* {!token && <Link to=""><li className="list-none hover:cursor-pointer hover:bg-black p-2">Sign in</li></Link>} */}
                                           {otoken && <Link to="/organizer/profile-page" className="w-full"><li className="list-none hover:cursor-pointer hover:bg-black p-2">Profile</li></Link>}
+                                          {!otoken && <Link to="/organizer/signin" className="w-full"><li className="list-none hover:cursor-pointer hover:bg-black p-2">Sign in</li></Link>}
                                           {otoken && <Link to="" className="w-full"><li onClick={logoutOrganizer} className="list-none hover:cursor-pointer hover:bg-black p-2">Sign out</li></Link>}
                                     </div>
                               </div>

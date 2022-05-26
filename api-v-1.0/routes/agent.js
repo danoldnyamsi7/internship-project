@@ -208,7 +208,9 @@ Router.post("/notify-agent", async (req, res) => {
                   // check in the agenda of the hall if the date already exists
                   let hall = await Hall.findOne({ agent: agent._id }).populate("agent");
                   
-              
+                  const reservationExist = await Reservation.find({hall_id: req.body.hall_id, date: req.body.date});
+                  if(reservationExist) return res.status(401).json({error: true, success: false, data: {}, message: "This hall is already reserved for this day"})
+
                   // if (hall.reservations.includes(req.body.date)) return res.status(400).json({ error: true, success: false, data: {}, message: "already reserved" });
                   // make a request to the validate reservation endpoint
                   req.body.agent_id = hall.agent;

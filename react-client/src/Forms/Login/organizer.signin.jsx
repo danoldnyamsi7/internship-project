@@ -41,7 +41,7 @@ function OrganizerSignin(props) {
                         // const { name, _id } = organizer;
                         localStorage.setItem("oaccess-token", token);
                         console.log(token, organizer);
-                        navigateTo("/");
+                        navigateTo("/organizer/profile-page");
                   })
                   .catch(error => {
                         console.error(error);

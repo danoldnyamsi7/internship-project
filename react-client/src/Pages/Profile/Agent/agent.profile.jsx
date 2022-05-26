@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -55,20 +56,11 @@ function AgentProfile() {
       })
       .catch((err) => {
         console.error(err);
-        alert("Sorry try again");
         navigateTo("/agent/signin");
+        alert("Sorry sign into your account and try again");
       });
     //
   };
-
-  // getAgent()
-
-  useEffect(() => {
-    getAgent();
-    getPendingReservation();
-    getConfirmedReservation();
-    //
-  }, []);
 
   const getPendingReservation = async () => {
     await axios({
@@ -89,6 +81,7 @@ function AgentProfile() {
       });
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getConfirmedReservation = async () => {
     await axios({
       method: "GET",
@@ -111,6 +104,17 @@ function AgentProfile() {
         console.log({ errorFromValR: error });
       });
   };
+
+  // getAgent()
+
+  useEffect(() => {
+    getAgent();
+    getPendingReservation();
+    getConfirmedReservation();
+    //
+  }, [getAgent, getConfirmedReservation, getConfirmedReservation]);
+
+
 
   const cancelAppointment = async (id) => {
     console.log(id)
